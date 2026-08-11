@@ -30,9 +30,15 @@ app.use("/video",videoRouter);
 
 const InitalizeConnection = async ()=>{
     try{
+        await main();
+        console.log("MongoDB connected");
 
-        await Promise.all([main(),redisClient.connect()]);
-        console.log("DB Connected");
+        try {
+            await redisClient.connect();
+            console.log("Redis connected");
+        } catch (redisError) {
+            console.error(`Redis disabled during startup: ${redisError.message}`);
+        }
         
         app.listen(process.env.PORT, ()=>{
             console.log("Server listening at port number: "+ process.env.PORT);
@@ -46,4 +52,3 @@ const InitalizeConnection = async ()=>{
 
 
 InitalizeConnection();
-

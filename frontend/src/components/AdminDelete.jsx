@@ -59,13 +59,15 @@ const AdminDelete = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Delete Problems</h1>
+    <div className="app-shell min-h-screen">
+      <div className="admin-shell">
+      <div className="mb-6">
+        <h1 className="admin-heading text-4xl font-bold">Delete Problems</h1>
+        <p className="admin-muted mt-3 text-lg">Review the list carefully and remove problems only when necessary.</p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
+      <div className="admin-table-wrap overflow-x-auto">
+        <table className="admin-table table table-zebra w-full">
           <thead>
             <tr>
               <th className="w-1/12">#</th>
@@ -92,7 +94,7 @@ const AdminDelete = () => {
                   </span>
                 </td>
                 <td>
-                  <span className="badge badge-outline">
+                  <span className="badge badge-outline text-slate-700">
                     {problem.tags}
                   </span>
                 </td>
@@ -100,7 +102,7 @@ const AdminDelete = () => {
                   <div className="flex space-x-2">
                     <button 
                       onClick={() => handleDelete(problem._id)}
-                      className="btn btn-sm btn-error"
+                      className="btn btn-sm btn-error rounded-2xl"
                     >
                       Delete
                     </button>
@@ -110,6 +112,7 @@ const AdminDelete = () => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

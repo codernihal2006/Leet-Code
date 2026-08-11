@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
 import Editor from '@monaco-editor/react';
 import { useParams } from 'react-router';
 import axiosClient from "../utils/axiosClient"
@@ -27,9 +26,6 @@ const ProblemPage = () => {
   let {problemId}  = useParams();
 
   
-
-  const { handleSubmit } = useForm();
-
  useEffect(() => {
     const fetchProblem = async () => {
       setLoading(true);
@@ -141,54 +137,52 @@ const ProblemPage = () => {
 
   if (loading && !problem) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="app-shell flex justify-center items-center min-h-screen">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }
 
   return (
-    <div className="h-screen flex bg-base-100">
-      {/* Left Panel */}
-      <div className="w-1/2 flex flex-col border-r border-base-300">
-        {/* Left Tabs */}
-        <div className="tabs tabs-bordered bg-base-200 px-4">
+    <div className="app-shell h-screen overflow-hidden p-3 lg:p-4">
+      <div className="flex h-full gap-3 lg:gap-4">
+      <div className="glass-panel-strong w-1/2 flex flex-col overflow-hidden rounded-[2rem] border border-white/40">
+        <div className="workspace-tabs tabs bg-white/60 px-4 pt-3">
           <button 
-            className={`tab ${activeLeftTab === 'description' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeLeftTab === 'description' ? 'tab-active' : ''}`}
             onClick={() => setActiveLeftTab('description')}
           >
             Description
           </button>
           <button 
-            className={`tab ${activeLeftTab === 'editorial' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeLeftTab === 'editorial' ? 'tab-active' : ''}`}
             onClick={() => setActiveLeftTab('editorial')}
           >
             Editorial
           </button>
           <button 
-            className={`tab ${activeLeftTab === 'solutions' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeLeftTab === 'solutions' ? 'tab-active' : ''}`}
             onClick={() => setActiveLeftTab('solutions')}
           >
             Solutions
           </button>
           <button 
-            className={`tab ${activeLeftTab === 'submissions' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeLeftTab === 'submissions' ? 'tab-active' : ''}`}
             onClick={() => setActiveLeftTab('submissions')}
           >
             Submissions
           </button>
 
           <button 
-            className={`tab ${activeLeftTab === 'chatAI' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeLeftTab === 'chatAI' ? 'tab-active' : ''}`}
             onClick={() => setActiveLeftTab('chatAI')}
           >
-            ChatAI
+            Chat AI
           </button>
 
 
         </div>
 
-        {/* Left Content */}
         <div className="flex-1 overflow-y-auto p-6">
           {problem && (
             <>
@@ -212,7 +206,7 @@ const ProblemPage = () => {
                     <h3 className="text-lg font-semibold mb-4">Examples:</h3>
                     <div className="space-y-4">
                       {problem.visibleTestCases.map((example, index) => (
-                        <div key={index} className="bg-base-200 p-4 rounded-lg">
+                        <div key={index} className="rounded-2xl bg-slate-100/80 p-4">
                           <h4 className="font-semibold mb-2">Example {index + 1}:</h4>
                           <div className="space-y-2 text-sm font-mono">
                             <div><strong>Input:</strong> {example.input}</div>
@@ -240,12 +234,12 @@ const ProblemPage = () => {
                   <h2 className="text-xl font-bold mb-4">Solutions</h2>
                   <div className="space-y-6">
                     {problem.referenceSolution?.map((solution, index) => (
-                      <div key={index} className="border border-base-300 rounded-lg">
-                        <div className="bg-base-200 px-4 py-2 rounded-t-lg">
+                      <div key={index} className="overflow-hidden rounded-2xl border border-slate-200">
+                        <div className="bg-slate-100/80 px-4 py-3">
                           <h3 className="font-semibold">{problem?.title} - {solution?.language}</h3>
                         </div>
                         <div className="p-4">
-                          <pre className="bg-base-300 p-4 rounded text-sm overflow-x-auto">
+                          <pre className="overflow-x-auto rounded-2xl bg-slate-900 p-4 text-sm text-slate-100">
                             <code>{solution?.completeCode}</code>
                           </pre>
                         </div>
@@ -277,24 +271,22 @@ const ProblemPage = () => {
         </div>
       </div>
 
-      {/* Right Panel */}
-      <div className="w-1/2 flex flex-col">
-        {/* Right Tabs */}
-        <div className="tabs tabs-bordered bg-base-200 px-4">
+      <div className="glass-panel-strong w-1/2 flex flex-col overflow-hidden rounded-[2rem] border border-white/40">
+        <div className="workspace-tabs tabs bg-white/60 px-4 pt-3">
           <button 
-            className={`tab ${activeRightTab === 'code' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeRightTab === 'code' ? 'tab-active' : ''}`}
             onClick={() => setActiveRightTab('code')}
           >
             Code
           </button>
           <button 
-            className={`tab ${activeRightTab === 'testcase' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeRightTab === 'testcase' ? 'tab-active' : ''}`}
             onClick={() => setActiveRightTab('testcase')}
           >
             Testcase
           </button>
           <button 
-            className={`tab ${activeRightTab === 'result' ? 'tab-active' : ''}`}
+            className={`workspace-tab tab ${activeRightTab === 'result' ? 'tab-active' : ''}`}
             onClick={() => setActiveRightTab('result')}
           >
             Result
@@ -305,13 +297,12 @@ const ProblemPage = () => {
         <div className="flex-1 flex flex-col">
           {activeRightTab === 'code' && (
             <div className="flex-1 flex flex-col">
-              {/* Language Selector */}
-              <div className="flex justify-between items-center p-4 border-b border-base-300">
+              <div className="flex justify-between items-center border-b border-slate-200 p-4">
                 <div className="flex gap-2">
                   {['javascript', 'java', 'cpp'].map((lang) => (
                     <button
                       key={lang}
-                      className={`btn btn-sm ${selectedLanguage === lang ? 'btn-primary' : 'btn-ghost'}`}
+                      className={`btn btn-sm rounded-2xl ${selectedLanguage === lang ? 'btn-primary' : 'btn-ghost'}`}
                       onClick={() => handleLanguageChange(lang)}
                     >
                       {lang === 'cpp' ? 'C++' : lang === 'javascript' ? 'JavaScript' : 'Java'}
@@ -320,7 +311,6 @@ const ProblemPage = () => {
                 </div>
               </div>
 
-              {/* Monaco Editor */}
               <div className="flex-1">
                 <Editor
                   height="100%"
@@ -352,11 +342,10 @@ const ProblemPage = () => {
                 />
               </div>
 
-              {/* Action Buttons */}
-              <div className="p-4 border-t border-base-300 flex justify-between">
+              <div className="flex justify-between border-t border-slate-200 p-4">
                 <div className="flex gap-2">
                   <button 
-                    className="btn btn-ghost btn-sm"
+                    className="btn btn-ghost btn-sm rounded-2xl"
                     onClick={() => setActiveRightTab('testcase')}
                   >
                     Console
@@ -364,14 +353,14 @@ const ProblemPage = () => {
                 </div>
                 <div className="flex gap-2">
                   <button
-                    className={`btn btn-outline btn-sm ${loading ? 'loading' : ''}`}
+                    className={`btn btn-outline btn-sm rounded-2xl ${loading ? 'loading' : ''}`}
                     onClick={handleRun}
                     disabled={loading}
                   >
                     Run
                   </button>
                   <button
-                    className={`btn btn-primary btn-sm ${loading ? 'loading' : ''}`}
+                    className={`btn btn-primary btn-sm rounded-2xl ${loading ? 'loading' : ''}`}
                     onClick={handleSubmitCode}
                     disabled={loading}
                   >
@@ -383,7 +372,7 @@ const ProblemPage = () => {
           )}
 
           {activeRightTab === 'testcase' && (
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-4">
               <h3 className="font-semibold mb-4">Test Results</h3>
               {runResult ? (
                 <div className={`alert ${runResult.success ? 'alert-success' : 'alert-error'} mb-4`}>
@@ -396,7 +385,7 @@ const ProblemPage = () => {
                         
                         <div className="mt-4 space-y-2">
                           {runResult.testCases.map((tc, i) => (
-                            <div key={i} className="bg-base-100 p-3 rounded text-xs">
+                            <div key={i} className="rounded-2xl bg-white p-3 text-xs">
                               <div className="font-mono">
                                 <div><strong>Input:</strong> {tc.stdin}</div>
                                 <div><strong>Expected:</strong> {tc.expected_output}</div>
@@ -414,7 +403,7 @@ const ProblemPage = () => {
                         <h4 className="font-bold">❌ Error</h4>
                         <div className="mt-4 space-y-2">
                           {runResult.testCases.map((tc, i) => (
-                            <div key={i} className="bg-base-100 p-3 rounded text-xs">
+                            <div key={i} className="rounded-2xl bg-white p-3 text-xs">
                               <div className="font-mono">
                                 <div><strong>Input:</strong> {tc.stdin}</div>
                                 <div><strong>Expected:</strong> {tc.expected_output}</div>
@@ -439,7 +428,7 @@ const ProblemPage = () => {
           )}
 
           {activeRightTab === 'result' && (
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-4">
               <h3 className="font-semibold mb-4">Submission Result</h3>
               {submitResult ? (
                 <div className={`alert ${submitResult.accepted ? 'alert-success' : 'alert-error'}`}>
@@ -471,6 +460,7 @@ const ProblemPage = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

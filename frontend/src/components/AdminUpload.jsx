@@ -35,7 +35,7 @@ function AdminUpload(){
         try {
           // Step 1: Get upload signature from backend
           const signatureResponse = await axiosClient.get(`/video/create/${problemId}`);
-          const { signature, timestamp, public_id, api_key, cloud_name, upload_url } = signatureResponse.data;
+          const { signature, timestamp, public_id, api_key, upload_url } = signatureResponse.data;
     
           // Step 2: Create FormData for Cloudinary upload
           const formData = new FormData();
@@ -98,16 +98,17 @@ function AdminUpload(){
       };
     
       return (
-        <div className="max-w-md mx-auto p-6">
-          <div className="card bg-base-100 shadow-xl">
+        <div className="app-shell min-h-screen">
+          <div className="admin-shell max-w-2xl">
+          <div className="card admin-card">
             <div className="card-body">
-              <h2 className="card-title">Upload Video</h2>
+              <h2 className="card-title text-3xl text-slate-900">Upload Video</h2>
+              <p className="admin-muted mb-2">Choose a file, upload it safely, and save the editorial video for this problem.</p>
               
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* File Input */}
                 <div className="form-control w-full">
                   <label className="label">
-                    <span className="label-text">Choose video file</span>
+                    <span className="field-label">Choose video file</span>
                   </label>
                   <input
                     type="file"
@@ -128,7 +129,7 @@ function AdminUpload(){
                         }
                       }
                     })}
-                    className={`file-input file-input-bordered w-full ${errors.videoFile ? 'file-input-error' : ''}`}
+                    className={`admin-file-input file-input file-input-bordered w-full rounded-2xl ${errors.videoFile ? 'file-input-error' : ''}`}
                     disabled={uploading}
                   />
                   {errors.videoFile && (
@@ -138,7 +139,6 @@ function AdminUpload(){
                   )}
                 </div>
     
-                {/* Selected File Info */}
                 {selectedFile && (
                   <div className="alert alert-info">
                     <div>
@@ -149,7 +149,6 @@ function AdminUpload(){
                   </div>
                 )}
     
-                {/* Upload Progress */}
                 {uploading && (
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
@@ -164,14 +163,12 @@ function AdminUpload(){
                   </div>
                 )}
     
-                {/* Error Message */}
                 {errors.root && (
                   <div className="alert alert-error">
                     <span>{errors.root.message}</span>
                   </div>
                 )}
     
-                {/* Success Message */}
                 {uploadedVideo && (
                   <div className="alert alert-success">
                     <div>
@@ -182,12 +179,11 @@ function AdminUpload(){
                   </div>
                 )}
     
-                {/* Upload Button */}
                 <div className="card-actions justify-end">
                   <button
                     type="submit"
                     disabled={uploading}
-                    className={`btn btn-primary ${uploading ? 'loading' : ''}`}
+                    className={`btn btn-primary rounded-2xl ${uploading ? 'loading' : ''}`}
                   >
                     {uploading ? 'Uploading...' : 'Upload Video'}
                   </button>
@@ -195,6 +191,7 @@ function AdminUpload(){
               </form>
             
             </div>
+          </div>
           </div>
         </div>
     );

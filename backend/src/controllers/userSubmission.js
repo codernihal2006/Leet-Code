@@ -94,7 +94,7 @@ const submitCode = async (req,res)=>{
     
     // req.result == user Information
 
-    if(!req.result.problemSolved.includes(problemId)){
+    if(!req.result.problemSolved.some(id => id.toString() === problemId.toString())){
       req.result.problemSolved.push(problemId);
       await req.result.save();
     }

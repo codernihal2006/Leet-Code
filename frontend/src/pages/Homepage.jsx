@@ -52,18 +52,20 @@ function Homepage() {
   });
 
   return (
-    <div className="min-h-screen bg-base-200">
-      {/* Navigation Bar */}
-      <nav className="navbar bg-base-100 shadow-lg px-4">
+    <div className="app-shell min-h-screen px-4 py-4">
+      <nav className="glass-panel-strong navbar relative z-30 mx-auto max-w-7xl overflow-visible rounded-[2rem] px-5 shadow-xl">
         <div className="flex-1">
-          <NavLink to="/" className="btn btn-ghost text-xl">LeetCode</NavLink>
+          <NavLink to="/" className="btn btn-ghost gap-3 rounded-2xl px-2 text-xl normal-case hover:bg-transparent">
+            <span className="brand-mark">CP</span>
+            <span>Copilot</span>
+          </NavLink>
         </div>
         <div className="flex-none gap-4">
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} className="btn btn-ghost">
+          <div className="dropdown dropdown-end relative z-40">
+            <div tabIndex={0} className="btn btn-ghost rounded-2xl border border-slate-200/80 bg-white/70 px-4 hover:bg-white">
               {user?.firstName}
             </div>
-            <ul className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+            <ul className="dropdown-menu-clean dropdown-content absolute right-0 top-full z-50 mt-3 w-52 rounded-3xl p-2 shadow-2xl">
               <li><button onClick={handleLogout}>Logout</button></li>
               {user.role=='admin'&&<li><NavLink to="/admin">Admin</NavLink></li>}
             </ul>
@@ -71,13 +73,38 @@ function Homepage() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="container mx-auto p-4">
-        {/* Filters */}
-        <div className="flex flex-wrap gap-4 mb-6">
-          {/* New Status Filter */}
+      <div className="mx-auto mt-6 max-w-7xl">
+        <div className="challenge-hero mb-8">
+          <div className="glass-panel rounded-[2rem] p-8">
+            <span className="section-kicker mb-5">Daily Problem Set</span>
+            <h1 className="section-title max-w-2xl">
+              A focused challenge board for deliberate practice.
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+              Filter quickly, track solved work, and jump into the workspace without noise or clutter.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="glass-panel rounded-[2rem] p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Problems</p>
+              <p className="mt-3 text-4xl font-bold">{problems.length}</p>
+            </div>
+            <div className="glass-panel rounded-[2rem] p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Solved</p>
+              <p className="mt-3 text-4xl font-bold">{solvedProblems.length}</p>
+            </div>
+            <div className="glass-panel rounded-[2rem] p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">Focus</p>
+              <p className="mt-3 text-lg font-bold">Arrays to DP</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel rounded-[2rem] p-5">
+          <div className="mb-3 flex flex-wrap gap-4">
           <select 
-            className="select select-bordered"
+            className="select select-bordered rounded-2xl"
             value={filters.status}
             onChange={(e) => setFilters({...filters, status: e.target.value})}
           >
@@ -86,7 +113,7 @@ function Homepage() {
           </select>
 
           <select 
-            className="select select-bordered"
+            className="select select-bordered rounded-2xl"
             value={filters.difficulty}
             onChange={(e) => setFilters({...filters, difficulty: e.target.value})}
           >
@@ -97,7 +124,7 @@ function Homepage() {
           </select>
 
           <select 
-            className="select select-bordered"
+            className="select select-bordered rounded-2xl"
             value={filters.tag}
             onChange={(e) => setFilters({...filters, tag: e.target.value})}
           >
@@ -108,15 +135,15 @@ function Homepage() {
             <option value="dp">DP</option>
           </select>
         </div>
+        </div>
 
-        {/* Problems List */}
-        <div className="grid gap-4">
+        <div className="mt-6 grid gap-5">
           {filteredProblems.map(problem => (
-            <div key={problem._id} className="card bg-base-100 shadow-xl">
-              <div className="card-body">
+            <div key={problem._id} className="glass-panel card rounded-[2rem] border-0 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl">
+              <div className="card-body p-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="card-title">
-                    <NavLink to={`/problem/${problem._id}`} className="hover:text-primary">
+                  <h2 className="card-title text-[1.15rem]">
+                    <NavLink to={`/problem/${problem._id}`} className="transition hover:text-orange-600">
                       {problem.title}
                     </NavLink>
                   </h2>
@@ -130,7 +157,7 @@ function Homepage() {
                   )}
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="mt-3 flex gap-2">
                   <div className={`badge ${getDifficultyBadgeColor(problem.difficulty)}`}>
                     {problem.difficulty}
                   </div>

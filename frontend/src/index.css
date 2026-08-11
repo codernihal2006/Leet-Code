@@ -1,2 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+:root {
+  color-scheme: light;
+  --app-ink: #14213d;
+  --app-muted: #667085;
+  --app-muted-strong: #475467;
+  --app-surface: rgba(255, 255, 255, 0.84);
+  --app-surface-strong: rgba(255, 255, 255, 0.94);
+  --app-border: rgba(20, 33, 61, 0.09);
+  --app-shadow: 0 18px 45px rgba(20, 33, 61, 0.12);
+  --app-accent: #f97316;
+  --app-accent-deep: #ea580c;
+  --app-accent-soft: rgba(249, 115, 22, 0.12);
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(255, 196, 87, 0.35), transparent 30%),
+    radial-gradient(circle at top right, rgba(125, 211, 252, 0.3), transparent 28%),
+    linear-gradient(180deg, #fffdf8 0%, #f6f8fb 48%, #eef3f8 100%);
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--app-ink);
+  font-family: "DM Sans", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.card-title,
+.btn,
+.tab {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.app-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.08), transparent 22%),
+    radial-gradient(circle at 85% 16%, rgba(59, 130, 246, 0.08), transparent 20%),
+    radial-gradient(circle at 50% 100%, rgba(20, 33, 61, 0.05), transparent 24%);
+}
+
+.glass-panel {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+  backdrop-filter: blur(18px);
+}
+
+.glass-panel-strong {
+  background: var(--app-surface-strong);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+  backdrop-filter: blur(22px);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--app-accent-soft) 0%, rgba(255, 255, 255, 0.9) 100%);
+  color: var(--app-accent-deep);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(12px);
+  opacity: 0.55;
+}
+
+.hero-orb-primary {
+  background: rgba(249, 115, 22, 0.18);
+}
+
+.hero-orb-secondary {
+  background: rgba(56, 189, 248, 0.18);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(249, 115, 22, 0.22);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--app-accent-deep);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.field-label {
+  color: var(--app-ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.input,
+.select,
+.textarea {
+  border-color: rgba(20, 33, 61, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: rgba(249, 115, 22, 0.48);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+}
+
+.btn-primary {
+  border: none;
+  background: linear-gradient(135deg, var(--app-accent) 0%, var(--app-accent-deep) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+.dropdown-menu-clean {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(20, 33, 61, 0.08);
+  box-shadow: 0 18px 45px rgba(20, 33, 61, 0.16);
+  color: var(--app-ink);
+}
+
+.dropdown-menu-clean li > * {
+  border-radius: 1rem;
+  color: var(--app-ink);
+  font-weight: 600;
+}
+
+.dropdown-menu-clean li > *:hover,
+.dropdown-menu-clean li > *:focus {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--app-accent-deep);
+}
+
+.workspace-tabs {
+  gap: 0.35rem;
+  border-bottom: 1px solid rgba(20, 33, 61, 0.08);
+}
+
+.workspace-tab {
+  border: 0 !important;
+  border-radius: 999px;
+  color: var(--app-muted-strong);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.workspace-tab:hover {
+  color: var(--app-ink);
+  background: rgba(20, 33, 61, 0.06);
+}
+
+.workspace-tab.tab-active {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.14) 0%, rgba(249, 115, 22, 0.22) 100%);
+  color: var(--app-accent-deep);
+  box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.18);
+}
+
+.workspace-tab::after {
+  display: none;
+}
+
+.challenge-hero {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .challenge-hero {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.table thead th {
+  color: var(--app-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.73rem;
+  letter-spacing: 0.08em;
+}
+
+.prose {
+  color: var(--app-ink);
+}
+
+.admin-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.admin-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(20, 33, 61, 0.08);
+  border-radius: 1.75rem;
+  box-shadow: 0 18px 45px rgba(20, 33, 61, 0.12);
+}
+
+.admin-heading {
+  color: var(--app-ink);
+}
+
+.admin-muted {
+  color: var(--app-muted-strong);
+}
+
+.admin-section-title {
+  color: var(--app-ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.admin-outline-box {
+  border: 1px solid rgba(20, 33, 61, 0.1);
+  background: rgba(248, 250, 252, 0.92);
+  border-radius: 1.25rem;
+}
+
+.admin-code-box {
+  border-radius: 1.25rem;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.admin-code-box textarea {
+  color: #e2e8f0;
+}
+
+.admin-code-box textarea:focus {
+  outline: none;
+}
+
+.admin-table-wrap {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(20, 33, 61, 0.08);
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.admin-table {
+  color: var(--app-ink);
+}
+
+.admin-table thead th {
+  background: rgba(248, 250, 252, 0.94);
+}
+
+.admin-table tbody tr {
+  border-color: rgba(20, 33, 61, 0.06);
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(249, 115, 22, 0.06);
+}
+
+.admin-file-input {
+  color: var(--app-ink);
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(20, 33, 61, 0.12);
+}
+
+.admin-file-input::file-selector-button {
+  border: none;
+  margin-right: 1rem;
+  background: rgba(249, 115, 22, 0.14);
+  color: var(--app-accent-deep);
+  font-weight: 700;
+}

@@ -60,13 +60,15 @@ const AdminVideo = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Video Upload and Delete</h1>
+    <div className="app-shell min-h-screen">
+      <div className="admin-shell">
+      <div className="mb-6">
+        <h1 className="admin-heading text-4xl font-bold">Video Upload and Delete</h1>
+        <p className="admin-muted mt-3 text-lg">Upload editorial videos and manage existing entries with clear controls.</p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
+      <div className="admin-table-wrap overflow-x-auto">
+        <table className="admin-table table table-zebra w-full">
           <thead>
             <tr>
               <th className="w-1/12">#</th>
@@ -93,7 +95,7 @@ const AdminVideo = () => {
                   </span>
                 </td>
                 <td>
-                  <span className="badge badge-outline">
+                  <span className="badge badge-outline text-slate-700">
                     {problem.tags}
                   </span>
                 </td>
@@ -101,7 +103,7 @@ const AdminVideo = () => {
                   <div className="flex space-x-1">
                      <NavLink 
                         to={`/admin/upload/${problem._id}`}
-                        className={`btn bg-blue-600`}
+                        className="btn rounded-2xl border-0 bg-sky-600 text-white hover:bg-sky-700"
                         >
                         Upload
                     </NavLink>
@@ -111,7 +113,7 @@ const AdminVideo = () => {
                   <div className="flex space-x-2">
                     <button 
                       onClick={() => handleDelete(problem._id)}
-                      className="btn btn-sm btn-error"
+                      className="btn btn-sm btn-error rounded-2xl"
                     >
                       Delete
                     </button>
@@ -121,6 +123,7 @@ const AdminVideo = () => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );
