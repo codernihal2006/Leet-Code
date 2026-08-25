@@ -1,92 +1,100 @@
-import React from 'react';
-import { Plus, Edit, Trash2, Video } from 'lucide-react';
-import { NavLink } from 'react-router';
+import React from "react";
+import { Plus, Edit, Trash2, Video, ArrowRight } from "lucide-react";
+import { NavLink } from "react-router";
 
 function Admin() {
   const adminOptions = [
     {
-      id: 'create',
-      title: 'Create Problem',
-      description: 'Add a new coding problem to the platform',
+      id: "create",
+      title: "Create Problem",
+      description: "Add a new coding problem with test cases and starter code to the platform.",
       icon: Plus,
-      color: 'btn-success',
-      bgColor: 'bg-success/10',
-      route: '/admin/create'
+      badgeColor: "bg-emerald-100 text-emerald-800",
+      btnClass: "btn-success text-white",
+      route: "/admin/create"
     },
     {
-      id: 'update',
-      title: 'Update Problem',
-      description: 'Edit existing problems and their details',
+      id: "update",
+      title: "Update Problem",
+      description: "Edit existing problems, test cases, and reference solutions.",
       icon: Edit,
-      color: 'btn-warning',
-      bgColor: 'bg-warning/10',
-      route: '/admin/update'
+      badgeColor: "bg-amber-100 text-amber-800",
+      btnClass: "btn-warning text-slate-900",
+      route: "/admin/update"
     },
     {
-      id: 'delete',
-      title: 'Delete Problem',
-      description: 'Remove problems from the platform',
+      id: "delete",
+      title: "Delete Problem",
+      description: "Remove deprecated or duplicate coding problems from the database.",
       icon: Trash2,
-      color: 'btn-error',
-      bgColor: 'bg-error/10',
-      route: '/admin/delete'
+      badgeColor: "bg-rose-100 text-rose-800",
+      btnClass: "btn-error text-white",
+      route: "/admin/delete"
     },
     {
-      id: 'video',
-      title: 'Video Problem',
-      description: 'Upload And Delete Videos',
+      id: "video",
+      title: "Video Solutions",
+      description: "Upload and manage video editorials and solution walk-throughs.",
       icon: Video,
-      color: 'btn-success',
-      bgColor: 'bg-success/10',
-      route: '/admin/video'
+      badgeColor: "bg-sky-100 text-sky-800",
+      btnClass: "btn-info text-white",
+      route: "/admin/video"
     }
   ];
 
   return (
-    <div className="app-shell min-h-screen px-4 py-8">
+    <div className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto max-w-6xl">
-        <div className="glass-panel mb-12 rounded-[2rem] p-8 text-center">
-          <span className="section-kicker mb-5">Control Center</span>
-          <h1 className="section-title text-base-content">
-            Admin Panel
+        {/* Header Banner */}
+        <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:p-12">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1 text-xs font-bold uppercase tracking-wider text-orange-700">
+            Control Center
+          </div>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            Admin Management Panel
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-base-content/70">
-            Manage problem creation, deletion, and media from one polished workspace.
+          <p className="mx-auto mt-3 max-w-2xl text-base font-medium text-slate-600 sm:text-lg">
+            Manage problem creation, test case validation, updates, deletions, and video solutions from one central dashboard.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {/* Options Grid */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
           {adminOptions.map((option) => {
             const IconComponent = option.icon;
             return (
               <div
                 key={option.id}
-                className="glass-panel card rounded-[2rem] border-0 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
+                className="flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition duration-200 hover:border-slate-300 hover:shadow-md"
               >
-                <div className="card-body items-center text-center p-8">
-                  <div className={`${option.bgColor} mb-4 rounded-full p-4 ring-1 ring-slate-200`}>
-                    <IconComponent size={32} className="text-slate-800" />
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${option.badgeColor}`}>
+                      <IconComponent size={24} />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Action</span>
                   </div>
-                  <h2 className="card-title text-xl mb-2">
+                  <h2 className="text-xl font-bold text-slate-900 mb-2">
                     {option.title}
                   </h2>
-                  <p className="text-base-content/70 mb-6">
+                  <p className="text-sm leading-relaxed text-slate-600 mb-6">
                     {option.description}
                   </p>
-                  <div className="card-actions">
-                    <NavLink 
+                </div>
+
+                <div>
+                  <NavLink
                     to={option.route}
-                   className={`btn ${option.color} btn-wide rounded-2xl`}
-                   >
-                   {option.title}
-                   </NavLink>
-                  </div>
+                    className={`btn w-full rounded-xl ${option.btnClass} flex items-center justify-center gap-2 font-semibold`}
+                  >
+                    <span>Manage {option.title}</span>
+                    <ArrowRight size={16} />
+                  </NavLink>
                 </div>
               </div>
             );
           })}
         </div>
-
       </div>
     </div>
   );

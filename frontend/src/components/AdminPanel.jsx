@@ -89,24 +89,21 @@ function AdminPanel() {
   };
 
   return (
-    <div className="app-shell min-h-screen">
-      <div className="admin-shell">
-      <div className="mb-8">
-        <h1 className="admin-heading text-4xl font-bold">Create New Problem</h1>
-        <p className="admin-muted mt-3 text-lg">Add a complete coding problem with clear metadata, test cases, templates, and solutions.</p>
-      </div>
+    <div className="min-h-screen bg-slate-50 px-4 py-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-extrabold text-slate-900 mb-6">Create New Problem</h1>
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="admin-card p-6">
-          <h2 className="admin-section-title mb-4">Basic Information</h2>
+        {/* Basic Information */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Basic Information</h2>
           <div className="space-y-4">
             <div className="form-control">
               <label className="label">
-                <span className="field-label">Title</span>
+                <span className="label-text font-semibold text-slate-800">Title</span>
               </label>
               <input
                 {...register('title')}
-                className={`input input-bordered rounded-2xl ${errors.title && 'input-error'}`}
+                className={`input input-bordered ${errors.title && 'input-error'}`}
               />
               {errors.title && (
                 <span className="text-error">{errors.title.message}</span>
@@ -115,11 +112,11 @@ function AdminPanel() {
 
             <div className="form-control">
               <label className="label">
-                <span className="field-label">Description</span>
+                <span className="label-text font-semibold text-slate-800">Description</span>
               </label>
               <textarea
                 {...register('description')}
-                className={`textarea textarea-bordered h-32 rounded-2xl ${errors.description && 'textarea-error'}`}
+                className={`textarea textarea-bordered h-32 ${errors.description && 'textarea-error'}`}
               />
               {errors.description && (
                 <span className="text-error">{errors.description.message}</span>
@@ -129,11 +126,11 @@ function AdminPanel() {
             <div className="flex gap-4">
               <div className="form-control w-1/2">
                 <label className="label">
-                  <span className="field-label">Difficulty</span>
+                  <span className="label-text font-semibold text-slate-800">Difficulty</span>
                 </label>
                 <select
                   {...register('difficulty')}
-                  className={`select select-bordered rounded-2xl ${errors.difficulty && 'select-error'}`}
+                  className={`select select-bordered ${errors.difficulty && 'select-error'}`}
                 >
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
@@ -143,11 +140,11 @@ function AdminPanel() {
 
               <div className="form-control w-1/2">
                 <label className="label">
-                  <span className="field-label">Tag</span>
+                  <span className="label-text font-semibold text-slate-800">Tag</span>
                 </label>
                 <select
                   {...register('tags')}
-                  className={`select select-bordered rounded-2xl ${errors.tags && 'select-error'}`}
+                  className={`select select-bordered ${errors.tags && 'select-error'}`}
                 >
                   <option value="array">Array</option>
                   <option value="linkedList">Linked List</option>
@@ -159,29 +156,30 @@ function AdminPanel() {
           </div>
         </div>
 
-        <div className="admin-card p-6">
-          <h2 className="admin-section-title mb-4">Test Cases</h2>
+        {/* Test Cases */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Test Cases</h2>
           
           {/* Visible Test Cases */}
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center">
-              <h3 className="admin-heading font-semibold">Visible Test Cases</h3>
+              <h3 className="font-bold text-slate-800">Visible Test Cases</h3>
               <button
                 type="button"
                 onClick={() => appendVisible({ input: '', output: '', explanation: '' })}
-                className="btn btn-sm btn-primary rounded-2xl"
+                className="btn btn-sm btn-primary"
               >
                 Add Visible Case
               </button>
             </div>
             
             {visibleFields.map((field, index) => (
-              <div key={field.id} className="admin-outline-box space-y-2 p-4">
+              <div key={field.id} className="border p-4 rounded-lg space-y-2">
                 <div className="flex justify-end">
                   <button
                     type="button"
                     onClick={() => removeVisible(index)}
-                    className="btn btn-xs btn-error rounded-xl"
+                    className="btn btn-xs btn-error"
                   >
                     Remove
                   </button>
@@ -190,19 +188,19 @@ function AdminPanel() {
                 <input
                   {...register(`visibleTestCases.${index}.input`)}
                   placeholder="Input"
-                  className="input input-bordered w-full rounded-2xl"
+                  className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                 />
                 
                 <input
                   {...register(`visibleTestCases.${index}.output`)}
                   placeholder="Output"
-                  className="input input-bordered w-full rounded-2xl"
+                  className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                 />
                 
                 <textarea
                   {...register(`visibleTestCases.${index}.explanation`)}
                   placeholder="Explanation"
-                  className="textarea textarea-bordered w-full rounded-2xl"
+                  className="textarea textarea-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                 />
               </div>
             ))}
@@ -211,23 +209,23 @@ function AdminPanel() {
           {/* Hidden Test Cases */}
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="admin-heading font-semibold">Hidden Test Cases</h3>
+              <h3 className="font-bold text-slate-800">Hidden Test Cases</h3>
               <button
                 type="button"
                 onClick={() => appendHidden({ input: '', output: '' })}
-                className="btn btn-sm btn-primary rounded-2xl"
+                className="btn btn-sm btn-primary"
               >
                 Add Hidden Case
               </button>
             </div>
             
             {hiddenFields.map((field, index) => (
-              <div key={field.id} className="admin-outline-box space-y-2 p-4">
+              <div key={field.id} className="border p-4 rounded-lg space-y-2">
                 <div className="flex justify-end">
                   <button
                     type="button"
                     onClick={() => removeHidden(index)}
-                    className="btn btn-xs btn-error rounded-xl"
+                    className="btn btn-xs btn-error"
                   >
                     Remove
                   </button>
@@ -236,64 +234,64 @@ function AdminPanel() {
                 <input
                   {...register(`hiddenTestCases.${index}.input`)}
                   placeholder="Input"
-                  className="input input-bordered w-full rounded-2xl"
+                  className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                 />
                 
                 <input
                   {...register(`hiddenTestCases.${index}.output`)}
                   placeholder="Output"
-                  className="input input-bordered w-full rounded-2xl"
+                  className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                 />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="admin-card p-6">
-          <h2 className="admin-section-title mb-4">Code Templates</h2>
+        {/* Code Templates */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Code Templates</h2>
           
           <div className="space-y-6">
             {[0, 1, 2].map((index) => (
               <div key={index} className="space-y-2">
-                <h3 className="admin-heading font-semibold">
+                <h3 className="font-bold text-slate-800">
                   {index === 0 ? 'C++' : index === 1 ? 'Java' : 'JavaScript'}
                 </h3>
                 
                 <div className="form-control">
                   <label className="label">
-                    <span className="field-label">Initial Code</span>
+                    <span className="label-text font-semibold text-slate-800">Initial Code</span>
                   </label>
-                  <pre className="admin-code-box p-4">
+                  <div className="mt-2">
                     <textarea
                       {...register(`startCode.${index}.initialCode`)}
                       className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                       rows={6}
                     />
-                  </pre>
+                  </div>
                 </div>
                 
                 <div className="form-control">
                   <label className="label">
-                    <span className="field-label">Reference Solution</span>
+                    <span className="label-text font-semibold text-slate-800">Reference Solution</span>
                   </label>
-                  <pre className="admin-code-box p-4">
+                  <div className="mt-2">
                     <textarea
                       {...register(`referenceSolution.${index}.completeCode`)}
                       className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                       rows={6}
                     />
-                  </pre>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary w-full rounded-2xl">
+        <button type="submit" className="btn btn-primary w-full">
           Create Problem
         </button>
       </form>
-      </div>
     </div>
   );
 }

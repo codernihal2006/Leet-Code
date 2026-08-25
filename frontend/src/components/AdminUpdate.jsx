@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import axiosClient from '../utils/axiosClient'
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from "react";
+import axiosClient from "../utils/axiosClient";
+import { useNavigate } from "react-router";
 
 const AdminUpdate = () => {
     const [problems, setProblems] = useState([]);
@@ -15,10 +15,10 @@ const AdminUpdate = () => {
     const fetchProblems = async () => {
         try {
             setLoading(true);
-            const { data } = await axiosClient.get('/problem/getAllProblem');
+            const { data } = await axiosClient.get("/problem/getAllProblem");
             setProblems(data);
         } catch (err) {
-            setError('Failed to fetch problems');
+            setError("Failed to fetch problems");
             console.error(err);
         } finally {
             setLoading(false);
@@ -27,74 +27,73 @@ const AdminUpdate = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner loading-lg"></span>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="alert alert-error shadow-lg my-4">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>{error}</span>
-                </div>
+            <div className="flex min-h-screen items-center justify-center bg-slate-50">
+                <span className="loading loading-spinner loading-lg text-orange-600"></span>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Update Problems</h1>
-            </div>
+        <div className="min-h-screen bg-slate-50 px-4 py-8">
+            <div className="mx-auto max-w-6xl">
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-extrabold text-slate-900">Update Problems</h1>
+                        <p className="mt-1 text-sm text-slate-600">Select a problem to modify its title, difficulty, test cases, or starter code.</p>
+                    </div>
+                </div>
 
-            <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
-                    <thead>
-                        <tr>
-                            <th className="w-1/12">#</th>
-                            <th className="w-4/12">Title</th>
-                            <th className="w-2/12">Difficulty</th>
-                            <th className="w-3/12">Tags</th>
-                            <th className="w-2/12">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {problems.map((problem, index) => (
-                            <tr key={problem._id}>
-                                <th>{index + 1}</th>
-                                <td>{problem.title}</td>
-                                <td>
-                                    <span className={`badge ${problem.difficulty.toLowerCase() === 'easy'
-                                            ? 'badge-success'
-                                            : problem.difficulty.toLowerCase() === 'medium'
-                                                ? 'badge-warning'
-                                                : 'badge-error'
-                                        }`}>
-                                        {problem.difficulty}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className="badge badge-outline">
-                                        {problem.tags}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button
-                                        onClick={() => navigate(`/admin/update/${problem._id}`)}
-                                        className="btn btn-sm btn-warning"
-                                    >
-                                        Edit
-                                    </button>
-                                </td>
+                {error && (
+                    <div className="alert alert-error mb-6 shadow-sm">
+                        <span>{error}</span>
+                    </div>
+                )}
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <table className="table w-full">
+                        <thead>
+                            <tr className="border-b border-slate-200 bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-600">
+                                <th className="py-4 pl-6">#</th>
+                                <th>Title</th>
+                                <th>Difficulty</th>
+                                <th>Tags</th>
+                                <th className="text-right pr-6">Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 text-slate-800">
+                            {problems.map((problem, index) => (
+                                <tr key={problem._id} className="transition-colors hover:bg-slate-50">
+                                    <td className="py-4 pl-6 font-bold text-slate-400">{index + 1}</td>
+                                    <td className="font-semibold text-slate-900">{problem.title}</td>
+                                    <td>
+                                        <span className={`badge badge-sm font-semibold ${
+                                            problem.difficulty?.toLowerCase() === "easy"
+                                                ? "bg-emerald-100 text-emerald-800 border-0"
+                                                : problem.difficulty?.toLowerCase() === "medium"
+                                                ? "bg-amber-100 text-amber-800 border-0"
+                                                : "bg-rose-100 text-rose-800 border-0"
+                                        }`}>
+                                            {problem.difficulty}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="badge badge-outline badge-sm text-slate-600">
+                                            {problem.tags}
+                                        </span>
+                                    </td>
+                                    <td className="text-right pr-6">
+                                        <button
+                                            onClick={() => navigate(`/admin/update/${problem._id}`)}
+                                            className="btn btn-sm bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold border-0 rounded-xl"
+                                        >
+                                            Edit Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

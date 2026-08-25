@@ -135,13 +135,13 @@ function AdminEdit() {
     }
 
     return (
-        <div className="container mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6">Edit Problem</h1>
+        <div className="min-h-screen bg-slate-50 px-4 py-8 max-w-4xl mx-auto">
+            <h1 className="text-3xl font-extrabold text-slate-900 mb-6">Edit Problem</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Basic Information */}
-                <div className="card bg-base-100 shadow-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4">Basic Information</h2>
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Basic Information</h2>
                     <div className="space-y-4">
                         <div className="form-control">
                             <label className="label">
@@ -203,13 +203,13 @@ function AdminEdit() {
                 </div>
 
                 {/* Test Cases */}
-                <div className="card bg-base-100 shadow-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4">Test Cases</h2>
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Test Cases</h2>
 
                     {/* Visible Test Cases */}
                     <div className="space-y-4 mb-6">
                         <div className="flex justify-between items-center">
-                            <h3 className="font-medium">Visible Test Cases</h3>
+                            <h3 className="font-bold text-slate-800">Visible Test Cases</h3>
                             <button
                                 type="button"
                                 onClick={() => appendVisible({ input: '', output: '', explanation: '' })}
@@ -234,19 +234,19 @@ function AdminEdit() {
                                 <input
                                     {...register(`visibleTestCases.${index}.input`)}
                                     placeholder="Input"
-                                    className="input input-bordered w-full"
+                                    className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                                 />
 
                                 <input
                                     {...register(`visibleTestCases.${index}.output`)}
                                     placeholder="Output"
-                                    className="input input-bordered w-full"
+                                    className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                                 />
 
                                 <textarea
                                     {...register(`visibleTestCases.${index}.explanation`)}
                                     placeholder="Explanation"
-                                    className="textarea textarea-bordered w-full"
+                                    className="textarea textarea-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                                 />
                             </div>
                         ))}
@@ -255,7 +255,7 @@ function AdminEdit() {
                     {/* Hidden Test Cases */}
                     <div className="space-y-4">
                         <div className="flex justify-between items-center">
-                            <h3 className="font-medium">Hidden Test Cases</h3>
+                            <h3 className="font-bold text-slate-800">Hidden Test Cases</h3>
                             <button
                                 type="button"
                                 onClick={() => appendHidden({ input: '', output: '' })}
@@ -280,13 +280,13 @@ function AdminEdit() {
                                 <input
                                     {...register(`hiddenTestCases.${index}.input`)}
                                     placeholder="Input"
-                                    className="input input-bordered w-full"
+                                    className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                                 />
 
                                 <input
                                     {...register(`hiddenTestCases.${index}.output`)}
                                     placeholder="Output"
-                                    className="input input-bordered w-full"
+                                    className="input input-bordered w-full bg-white text-slate-900 border-slate-300 font-medium"
                                 />
                             </div>
                         ))}
@@ -294,13 +294,13 @@ function AdminEdit() {
                 </div>
 
                 {/* Code Templates */}
-                <div className="card bg-base-100 shadow-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4">Code Templates</h2>
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Code Templates</h2>
 
                     <div className="space-y-6">
                         {[0, 1, 2].map((index) => (
                             <div key={index} className="space-y-2">
-                                <h3 className="font-medium">
+                                <h3 className="font-bold text-slate-800">
                                     {index === 0 ? 'C++' : index === 1 ? 'Java' : 'JavaScript'}
                                 </h3>
 
@@ -308,26 +308,26 @@ function AdminEdit() {
                                     <label className="label">
                                         <span className="label-text font-semibold text-slate-800">Initial Code</span>
                                     </label>
-                                    <pre className="bg-base-300 p-4 rounded-lg">
+                                    <div className="mt-2">
                                         <textarea
                                             {...register(`startCode.${index}.initialCode`)}
                                             className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                                             rows={6}
                                         />
-                                    </pre>
+                                    </div>
                                 </div>
 
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text font-semibold text-slate-800">Reference Solution</span>
                                     </label>
-                                    <pre className="bg-base-300 p-4 rounded-lg">
+                                    <div className="mt-2">
                                         <textarea
                                             {...register(`referenceSolution.${index}.completeCode`)}
                                             className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                                             rows={6}
                                         />
-                                    </pre>
+                                    </div>
                                 </div>
                             </div>
                         ))}
