@@ -50,7 +50,10 @@ const submitCode = async (req,res)=>{
     
     const submitResult = await submitBatch(submissions);
     
-    const resultToken = submitResult.map((value)=> value.token);
+    if (!submitResult || !Array.isArray(submitResult)) {
+       throw new Error("Judge0 execution service unavailable. Check API key/quota.");
+   }
+   const resultToken = submitResult.map((value)=> value.token);
 
     const testResult = await submitToken(resultToken);
     
