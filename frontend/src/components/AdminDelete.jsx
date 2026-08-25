@@ -37,55 +37,55 @@ const AdminDelete = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex justify-center items-center h-64">
         <span className="loading loading-spinner loading-lg text-orange-600"></span>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8">
-      <div className="mx-auto max-w-6xl">
+    <div className="app-shell min-h-screen">
+      <div className="admin-shell">
         <div className="mb-6">
-          <h1 className="text-3xl font-extrabold text-slate-900">Delete Problems</h1>
-          <p className="mt-1 text-sm text-slate-600">Permanently delete problems from the database.</p>
+          <h1 className="admin-heading text-4xl font-bold text-slate-900">Delete Problems</h1>
+          <p className="admin-muted mt-3 text-lg text-slate-600">Review the list carefully and remove problems only when necessary.</p>
         </div>
 
         {error && (
-          <div className="alert alert-error mb-6 shadow-sm">
+          <div className="alert alert-error shadow-lg my-4">
             <span>{error}</span>
           </div>
         )}
 
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <table className="table w-full">
+        <div className="admin-table-wrap overflow-x-auto bg-white border border-slate-200 rounded-2xl shadow-sm">
+          <table className="admin-table table w-full">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-4 pl-6">#</th>
-                <th>Title</th>
-                <th>Difficulty</th>
-                <th>Tags</th>
-                <th className="text-right pr-6">Action</th>
+              <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                <th className="w-1/12 py-4">#</th>
+                <th className="w-4/12">Title</th>
+                <th className="w-2/12">Difficulty</th>
+                <th className="w-3/12">Tags</th>
+                <th className="w-2/12 text-right pr-6">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-800">
               {problems.map((problem, index) => (
-                <tr key={problem._id} className="transition-colors hover:bg-slate-50">
-                  <td className="py-4 pl-6 font-bold text-slate-400">{index + 1}</td>
+                <tr key={problem._id} className="hover:bg-slate-50 transition-colors">
+                  <th className="py-4 font-bold text-slate-400">{index + 1}</th>
                   <td className="font-semibold text-slate-900">{problem.title}</td>
                   <td>
-                    <span className={`badge badge-sm font-semibold ${
+                    <span className={`badge font-semibold ${
                       problem.difficulty?.toLowerCase() === "easy"
-                        ? "bg-emerald-100 text-emerald-800 border-0"
+                        ? "badge-success text-white"
                         : problem.difficulty?.toLowerCase() === "medium"
-                        ? "bg-amber-100 text-amber-800 border-0"
-                        : "bg-rose-100 text-rose-800 border-0"
+                        ? "badge-warning text-slate-900"
+                        : "badge-error text-white"
                     }`}>
                       {problem.difficulty}
                     </span>
                   </td>
                   <td>
-                    <span className="badge badge-outline badge-sm text-slate-600">
+                    <span className="badge badge-outline text-slate-700 font-medium">
                       {problem.tags}
                     </span>
                   </td>
