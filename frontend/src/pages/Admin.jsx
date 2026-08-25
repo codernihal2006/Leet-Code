@@ -73,10 +73,10 @@ function Admin() {
                   <p className="text-slate-600 text-base font-medium mb-6">
                     {option.description}
                   </p>
-                  <div className="card-actions w-full">
+                  <div className="card-actions justify-center items-center w-full mt-2">
                     <NavLink 
                       to={option.route}
-                      className={`btn ${option.color} btn-wide w-full rounded-2xl font-bold`}
+                      className={`btn ${option.color} btn-wide rounded-2xl font-bold text-center mx-auto`}
                     >
                       {option.title}
                     </NavLink>
