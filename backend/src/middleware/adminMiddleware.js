@@ -29,7 +29,10 @@ const adminMiddleware = async (req,res,next)=>{
 
         // Redis ke blockList mein persent toh nahi hai
 
-        const IsBlocked = await redisClient.exists(`token:${token}`);
+        let IsBlocked = false;
+        if (redisClient.isOpen) {
+            IsBlocked = await redisClient.exists(`token:${token}`).catch(() => false);
+        }
 
         if(IsBlocked)
             throw new Error("Invalid Token");

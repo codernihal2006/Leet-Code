@@ -75,11 +75,11 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         const { token } = req.cookies;
-        if (token) {
+        if (token && redisClient.isOpen) {
             const payload = jwt.decode(token);
-            await redisClient.set(`token:${token}`, "Blocked");
+            await redisClient.set(`token:${token}`, "Blocked").catch(() => {});
             if (payload?.exp) {
-                await redisClient.expireAt(`token:${token}`, payload.exp);
+                await redisClient.expireAt(`token:${token}`, payload.exp).catch(() => {});
             }
         }
 
