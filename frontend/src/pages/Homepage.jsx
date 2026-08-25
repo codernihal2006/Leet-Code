@@ -44,8 +44,8 @@ function Homepage() {
   };
 
   const filteredProblems = problems.filter(problem => {
-    const difficultyMatch = filters.difficulty === 'all' || problem.difficulty === filters.difficulty;
-    const tagMatch = filters.tag === 'all' || problem.tags === filters.tag;
+    const difficultyMatch = filters.difficulty === 'all' || problem.difficulty?.toLowerCase() === filters.difficulty?.toLowerCase();
+    const tagMatch = filters.tag === 'all' || (Array.isArray(problem.tags) ? problem.tags.some(t => t?.toLowerCase() === filters.tag?.toLowerCase()) : problem.tags?.toLowerCase() === filters.tag?.toLowerCase());
     const statusMatch = filters.status === 'all' || 
                       solvedProblems.some(sp => sp._id === problem._id);
     return difficultyMatch && tagMatch && statusMatch;
@@ -67,7 +67,7 @@ function Homepage() {
             </div>
             <ul className="dropdown-menu-clean dropdown-content absolute right-0 top-full z-50 mt-3 w-52 rounded-3xl p-2 shadow-2xl">
               <li><button onClick={handleLogout}>Logout</button></li>
-              {user.role=='admin'&&<li><NavLink to="/admin">Admin</NavLink></li>}
+              {user?.role=='admin'&&<li><NavLink to="/admin">Admin</NavLink></li>}
             </ul>
           </div>
         </div>
