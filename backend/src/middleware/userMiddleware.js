@@ -1,49 +1,42 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const redisClient = require("../config/redis")
+const redisClient = require("../config/redis");
 
-const userMiddleware = async (req,res,next)=>{
+const userMiddleware = async (req, res, next) => {
+    try {
+        const { token } = req.cookies;
+        if (!token) {
+            return res.status(401).send("Error: Token is not present");
+        }
 
-    try{
-        
-        const {token} = req.cookies;
-        if(!token)
-            throw new Error("Token is not persent");
+        const payload = jwt.verify(token, process.env.JWT_KEY);
+        const { _id } = payload;
 
-        const payload = jwt.verify(token,process.env.JWT_KEY);
-
-        const {_id} = payload;
-
-        if(!_id){
-            throw new Error("Invalid token");
+        if (!_id) {
+            return res.status(401).send("Error: Invalid token");
         }
 
         const result = await User.findById(_id);
-
-        if(!result){
-            throw new Error("User Doesn't Exist");
+        if (!result) {
+            return res.status(401).send("Error: User Doesn't Exist");
         }
 
-        // Redis ke blockList mein persent toh nahi hai
-
-        let IsBlocked = false;
         if (redisClient.isOpen) {
-            IsBlocked = await redisClient.exists(`token:${token}`).catch(() => false);
+            try {
+                const IsBlocked = await redisClient.exists(`token:${token}`);
+                if (IsBlocked) {
+                    return res.status(401).send("Error: Invalid Token");
+                }
+            } catch (redisErr) {
+                console.warn("Redis check failed, skipping blacklist check:", redisErr.message);
+            }
         }
-
-        if(IsBlocked)
-            throw new Error("Invalid Token");
 
         req.result = result;
-
-
         next();
+    } catch (err) {
+        return res.status(401).send("Error: " + (err.message || err));
     }
-    catch(err){
-        res.status(401).send("Error: "+ err.message)
-    }
-
-}
-
+};
 
 module.exports = userMiddleware;
