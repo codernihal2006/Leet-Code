@@ -13,8 +13,19 @@ const cors = require('cors');
 
 // console.log("Hello")
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some(o => origin.startsWith(o))) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
     credentials: true 
 }))
 
