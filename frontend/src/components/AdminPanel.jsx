@@ -266,7 +266,7 @@ function AdminPanel() {
                   <pre className="admin-code-box p-4">
                     <textarea
                       {...register(`startCode.${index}.initialCode`)}
-                      className="w-full bg-transparent font-mono"
+                      className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                       rows={6}
                     />
                   </pre>
@@ -279,7 +279,7 @@ function AdminPanel() {
                   <pre className="admin-code-box p-4">
                     <textarea
                       {...register(`referenceSolution.${index}.completeCode`)}
-                      className="w-full bg-transparent font-mono"
+                      className="w-full bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-sm leading-relaxed border border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary shadow-inner"
                       rows={6}
                     />
                   </pre>
